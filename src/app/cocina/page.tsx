@@ -52,7 +52,7 @@ export default function KitchenDisplaySystem() {
           orders={getFiltered("Nuevo")}
           actionText="EMPEZAR A PREPARAR"
           actionClass="bg-rose-600 hover:bg-rose-500 text-white"
-          onAction={(id) => updateStatus(id, "En preparación")}
+          onAction={(id: number) => updateStatus(id, "En preparación")}
         />
         
         <Column 
@@ -63,7 +63,7 @@ export default function KitchenDisplaySystem() {
           orders={getFiltered("En preparación")}
           actionText="MARCAR COMO LISTO"
           actionClass="bg-amber-500 hover:bg-amber-400 text-slate-900"
-          onAction={(id) => updateStatus(id, "Listo")}
+          onAction={(id: number) => updateStatus(id, "Listo")}
         />
 
         <Column 
@@ -74,7 +74,7 @@ export default function KitchenDisplaySystem() {
           orders={getFiltered("Listo")}
           actionText="ENTREGADO AL CLIENTE"
           actionClass="bg-emerald-600 hover:bg-emerald-500 text-white"
-          onAction={(id) => updateStatus(id, "Entregado")}
+          onAction={(id: number) => updateStatus(id, "Entregado")}
         />
       </div>
     </div>
