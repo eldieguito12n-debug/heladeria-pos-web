@@ -9,7 +9,10 @@ export default function KitchenDisplaySystem() {
   const fetchOrders = () => {
     fetch(`/api/orders?t=${Date.now()}`)
       .then(res => res.json())
-      .then(data => setOrders(data));
+      .then(data => {
+        if (Array.isArray(data)) setOrders(data);
+      })
+      .catch(err => console.error(err));
   };
 
   useEffect(() => {

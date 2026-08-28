@@ -12,7 +12,10 @@ export default function AdminInventory() {
   const fetchProducts = () => {
     fetch(`/api/products?t=${Date.now()}`)
       .then(res => res.json())
-      .then(data => setProducts(data));
+      .then(data => {
+        if (Array.isArray(data)) setProducts(data);
+      })
+      .catch(err => console.error(err));
   };
 
   useEffect(() => {

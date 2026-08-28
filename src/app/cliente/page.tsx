@@ -11,7 +11,11 @@ export default function ClienteKiosko() {
   useEffect(() => {
     fetch(`/api/products?t=${Date.now()}`)
       .then(res => res.json())
-      .then(data => setProducts(data));
+      .then(data => {
+        if (Array.isArray(data)) setProducts(data);
+        else console.error("Data no es arreglo:", data);
+      })
+      .catch(err => console.error("Error cargando productos:", err));
   }, []);
 
   const addToCart = (product: any) => {
