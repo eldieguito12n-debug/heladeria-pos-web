@@ -16,6 +16,17 @@ export default function ClienteKiosko() {
         else console.error("Data no es arreglo:", data);
       })
       .catch(err => console.error("Error cargando productos:", err));
+
+    // ---- SEÑAL DE VIDA (HEARTBEAT) ----
+    const heartbeat = setInterval(() => {
+      fetch('/api/heartbeat', {
+        method: 'POST',
+        body: JSON.stringify({ device: "Tablet (Kiosko)" }),
+        headers: { 'Content-Type': 'application/json' }
+      }).catch(() => {});
+    }, 3000);
+
+    return () => clearInterval(heartbeat);
   }, []);
 
   const addToCart = (product: any) => {

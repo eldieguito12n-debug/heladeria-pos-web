@@ -17,8 +17,21 @@ export default function KitchenDisplaySystem() {
 
   useEffect(() => {
     fetchOrders();
-    const interval = setInterval(fetchOrders, 3000); // Polling rápido para la cocina
-    return () => clearInterval(interval);
+    const interval = setInterval(fetchOrders, 3000);
+    
+    // ---- SEÑAL DE VIDA (HEARTBEAT) ----
+    const heartbeat = setInterval(() => {
+      fetch('/api/heartbeat', {
+        method: 'POST',
+        body: JSON.stringify({ device: "Monitor (Cocina)" }),
+        headers: { 'Content-Type': 'application/json' }
+      }).catch(() => {});
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(heartbeat);
+    };
   }, []);
 
   const updateStatus = async (id: number, newStatus: string) => {
